@@ -11,7 +11,20 @@ let total = 0;
 
 let numbersArr = new Array();
 
+selectsort.addEventListener("change", () => {
+    console.log("listen");
+    if (selectsort.value == "asc") {
 
+        numbersArr.sort();
+
+        console.log("ascending listen");
+    } else if (selectsort.value == "desc") {
+        numbersArr.sort();
+        numbersArr.reverse();
+
+    }
+    iterateNumbers();
+});
 
 
 btn1.addEventListener("click", () => {
@@ -22,19 +35,19 @@ btn1.addEventListener("click", () => {
     let regex = /^[0-9]+$/; // regular expression for checking valid positive number values.
 
 
-    if(txtNumber.match(regex)){
+    if (txtNumber.match(regex)) {
         num = parseInt(txtNumber);
         numbersArr.push(num);
         console.log(numbersArr);
         document.getElementById("txtNum").value = "";
     } else {
-        window.alert("Please input a number");
+        alert("Please input a number");
         document.getElementById("txtNum").value = "";
         return;
     }
 
     iterateNumbers();
-    
+
 });
 
 btn2.addEventListener("click", () => {
@@ -46,7 +59,7 @@ btn3.addEventListener("click", () => {
     total = 0;
 
     // reset all trs
-    while(tbl.hasChildNodes()) {
+    while (tbl.hasChildNodes()) {
         tbl.removeChild(tbl.firstChild);
     }
 
@@ -70,7 +83,7 @@ btn4.addEventListener("click", () => {
 
     tdTotalValue.style.textDecoration = "underline";
     tdTotalValue.innerHTML = total;
-        
+
     trTotal.appendChild(tdTotalLabel);
     trTotal.appendChild(tdTotalValue);
     tbl.appendChild(trTotal);
@@ -87,16 +100,16 @@ btn5.addEventListener("click", () => {
     trHigh.style.height = "30px";
     trLow.style.height = "30px";
     tdHigh.style.fontWeight = "bold";
-    tdHigh.style.fontWeight = "bold";
-    
-    tdHighValue.innerHTML ="HIGHEST:";
+    tdLow.style.fontWeight = "bold";
+
+    tdHigh.innerHTML = "HIGHEST:";
     tdLow.innerHTML = "LOWEST:";
 
     let max = numbersArr[0];
     let min = numbersArr[0];
     let i = 0;
 
-    for (i =0; i < numbersArr.length; i++){
+    for (i = 0; i < numbersArr.length; i++) {
         if (numbersArr[i] > max) {
             max = numbersArr[i];
         }
@@ -105,8 +118,8 @@ btn5.addEventListener("click", () => {
         }
     }
 
-    tdHighValue.innerHTML =max;
-    tdLowValue.innerHTML = min(numbersArr);
+    tdHighValue.innerHTML = max;
+    tdLowValue.innerHTML = min;
 
     trHigh.appendChild(tdHigh);
     trHigh.appendChild(tdHighValue);
@@ -114,10 +127,11 @@ btn5.addEventListener("click", () => {
     trLow.appendChild(tdLow);
     trLow.appendChild(tdLowValue);
     tbl.appendChild(trLow);
+
 });
 
 function deleteNumber(i) {
-    numbersArr.splice(i,1);
+    numbersArr.splice(i, 1);
     iterateNumbers();
     console.log(numbersArr)
 }
@@ -126,34 +140,34 @@ function editNumber(i) {
 
     const editTxt = prompt("Enter new number: ", numbersArr[i]);
     const regex = /^[0-9]+$/; // regular expression for checking valid positive number values.
-    
-    if(editTxt == null || editTxt == "") {
+
+    if (editTxt == null || editTxt == "") {
         alert("You did not input a new value!");
     } else {
-        if(editTxt.match(regex)) {
+        if (editTxt.match(regex)) {
             numbersArr[i] = parseInt(editTxt);
             iterateNumbers();
             console.log(numbersArr);
         } else {
             alert("You did not input a valid number!");
         }
-    } 
+    }
 }
 
 function iterateNumbers() {
     // reset all trs
-    while(tbl.hasChildNodes()) {
+    while (tbl.hasChildNodes()) {
         tbl.removeChild(tbl.firstChild);
     }
 
-    if(!(numbersArr.length == 0)) {
+    if (!(numbersArr.length == 0)) {
 
         total = 0;
 
         console.log(`Array Length: ${numbersArr.length}`);
 
         // Loop for iterating numbers from the array in a table
-        for(let i=0 ; i < numbersArr.length ; i++) {
+        for (let i = 0; i < numbersArr.length; i++) {
 
             const tr = document.createElement("tr");
             const td1 = document.createElement("td");
@@ -168,7 +182,7 @@ function iterateNumbers() {
 
             td2.style.width = "70px";
 
-            if(numbersArr[i] %2 == 0) {
+            if (numbersArr[i] % 2 == 0) {
                 td2.style.color = "green";
                 td2.innerHTML = "EVEN";
             } else {
@@ -176,10 +190,10 @@ function iterateNumbers() {
                 td2.innerHTML = "ODD";
             }
 
-            btnDelete.setAttribute("onclick", `deleteNumber(${i})`) ;
-            btnDelete.innerHTML = "Remove"; 
+            btnDelete.setAttribute("onclick", `deleteNumber(${i})`);
+            btnDelete.innerHTML = "Remove";
 
-            btnEdit.setAttribute("onclick", `editNumber(${i})`) ;
+            btnEdit.setAttribute("onclick", `editNumber(${i})`);
             btnEdit.innerHTML = "Edit";
 
             td3.appendChild(btnDelete);
@@ -192,15 +206,14 @@ function iterateNumbers() {
 
             tbl.appendChild(tr);
 
-            if(!(numbersArr.length == 0)) {
-              
-                document.ggetElementById("btn3").style.display = "inline";
-                document.ggetElementById("btn4").style.display = "inline";
-                document.ggetElementById("btn5").style.display = "inline";
-                document.ggetElementById("labelsort").style.display = "inline";
-                document.ggetElementById("sort").style.display = "inline";
+            if (!(numbersArr.length == 0)) {
+                document.getElementById("btn3").style.display = "inline";
+                document.getElementById("btn4").style.display = "inline";
+                document.getElementById("btn5").style.display = "inline";
+                document.getElementById("labelsort").style.display = "inline";
+                document.getElementById("sort").style.display = "inline";
             }
-            
+
             total += numbersArr[i];
             console.log(numbersArr[i]);
 
@@ -208,7 +221,6 @@ function iterateNumbers() {
         }
     } else {
         total = 0;
-        
         document.getElementById("btn3").style.display = "none";
         document.getElementById("btn4").style.display = "none";
         document.getElementById("btn5").style.display = "none";
