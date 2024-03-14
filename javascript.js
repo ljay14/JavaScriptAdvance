@@ -14,17 +14,15 @@ let numbersArr = new Array();
 selectsort.addEventListener("change", () => {
     console.log("listen");
     if (selectsort.value == "asc") {
-
-        numbersArr.sort();
-
+        numbersArr.sort((a, b) => a - b); 
         console.log("ascending listen");
     } else if (selectsort.value == "desc") {
-        numbersArr.sort();
-        numbersArr.reverse();
-
+        numbersArr.sort((a, b) => b - a); 
+        console.log("descending listen");
     }
     iterateNumbers();
 });
+
 
 
 btn1.addEventListener("click", () => {
@@ -38,6 +36,7 @@ btn1.addEventListener("click", () => {
     if (txtNumber.match(regex)) {
         num = parseInt(txtNumber);
         numbersArr.push(num);
+        numbersArr.sort((a, b) => a - b); // Sort the array in ascending order
         console.log(numbersArr);
         document.getElementById("txtNum").value = "";
     } else {
@@ -49,6 +48,7 @@ btn1.addEventListener("click", () => {
     iterateNumbers();
 
 });
+
 
 btn2.addEventListener("click", () => {
     document.getElementById("txtNum").value = "";
